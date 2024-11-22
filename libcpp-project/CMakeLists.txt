@@ -13,8 +13,12 @@ FetchContent_MakeAvailable(Corrosion)
 corrosion_import_crate(MANIFEST_PATH ${CMAKE_SOURCE_DIR}/rust-project/Cargo.toml)
 target_link_libraries(libcpp-project PUBLIC rust_c)
 
+target_include_directories(libcpp-project PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(libcpp-project PUBLIC ${CMAKE_SOURCE_DIR}/rust-project/bindings)
+
+
+
 # For manual linking:
 #add_custom_target() to build first!
 #target_include_directories(libcpp-project PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/rust-project/bindings)
 #target_link_libraries(libcpp-project PUBLIC ${CMAKE_SOURCE_DIR}/rust-project/target/release/librust_c.a)
-
