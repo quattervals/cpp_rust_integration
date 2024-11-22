@@ -1,6 +1,15 @@
-#[no_mangle]
-pub extern "C" fn rust_function() -> u64 {
-    123
+#[cxx::bridge]
+mod ffi {
+    extern "Rust" {
+        type SuperStructure;
+        fn increment(&mut self);
+
+        fn rust_function(x: i32) -> i32;
+    }
+}
+
+pub fn rust_function(x: i32) -> i32 {
+    x * 2
 }
 
 #[repr(C)]
@@ -29,37 +38,5 @@ impl Drop for SuperStructure {
             "SuperStructure with counter {} is being dropped.",
             self.counter
         );
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn super_structure_new() -> *mut SuperStructure {
-    Box::into_raw(Box::new(SuperStructure::new()))
-}
-
-#[no_mangle]
-pub extern "C" fn super_structure_increment(ptr: *mut SuperStructure) {
-    if !ptr.is_null() {
-        unsafe {
-            (*ptr).increment();
-        }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn super_structure_get_counter(ptr: *const SuperStructure) -> usize {
-    if ptr.is_null() {
-        0
-    } else {
-        unsafe { (*ptr).get_counter() }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn super_structure_free(ptr: *mut SuperStructure) {
-    if !ptr.is_null() {
-        unsafe {
-            drop(Box::from_raw(ptr));
-        }
     }
 }
