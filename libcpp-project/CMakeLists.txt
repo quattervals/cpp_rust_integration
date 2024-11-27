@@ -6,4 +6,3 @@ include(FetchContent)
 
 
 target_include_directories(libcpp-project PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-

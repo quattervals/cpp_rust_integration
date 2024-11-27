@@ -1,6 +1,8 @@
 #pragma once
 
-namespace cpp_project
-{
+
+namespace cpp_project {
+
 int getValue();
+
 }
