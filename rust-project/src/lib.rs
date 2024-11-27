@@ -3,6 +3,8 @@ mod ffi {
     extern "Rust" {
         type SuperStructure;
         fn increment(&mut self);
+        fn new_super_structure() -> Box<SuperStructure>;
+
 
         fn rust_function(x: i32) -> i32;
     }
@@ -11,6 +13,11 @@ mod ffi {
 pub fn rust_function(x: i32) -> i32 {
     x * 2
 }
+pub fn new_super_structure() -> Box<SuperStructure> {
+    Box::new(SuperStructure::new())
+}
+
+
 
 #[repr(C)]
 pub struct SuperStructure {
